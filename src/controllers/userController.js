@@ -12,7 +12,7 @@ module.exports = {
            password: req.body.password,
            passwordConfirmation: req.body.passwordConfirmation
          };
-
+         console.log(newUser) 
          userQueries.createUser(newUser, (err, user) => {
            if(err){
              req.flash("error", err);
@@ -20,8 +20,9 @@ module.exports = {
            } else {
 
              passport.authenticate("local")(req, res, () => {
-               req.flash("notice", "You've successfully signed in!");
-               res.redirect("/");
+              req.flash("notice", "You've successfully signed in!");
+              console.log("SUCCESS!!") 
+              res.redirect("/");
              })
            }
          });

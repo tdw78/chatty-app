@@ -1,29 +1,31 @@
+const { check, validationResult } = require('express-validator');
+
 module.exports = {
-  validateMessages(req, res, next) {
+  // validateMessages(req, res, next) {
 
-    if(req.method === "POST") {
-      req.checkBody("text", "must be at least 1 characters in length").isLength({min: 1});
-    }
+  //   if(req.method === "POST") {
+  //     req.check("text", "must be at least 1 characters in length").isLength({min: 1});
+  //   }
 
-    const errors = req.validationErrors();
+  //   const errors = req.validationErrors();
 
-    if (errors) {
-      req.flash("error", errors);
-      return res.redirect(303, req.headers.referer)
-    } else {
-      return next();
-    }
-  },
+  //   if (errors) {
+  //     req.flash("error", errors);
+  //     return res.redirect(303, req.headers.referer)
+  //   } else {
+  //     return next();
+  //   }
+  // },
   validateUsers(req, res, next) {
     if(req.method === "POST") {
 
-      req.checkBody("email", "must be valid").isEmail();
-      req.checkBody("password", "must be at least 6 characters in length").isLength({min: 6})
-      req.checkBody("passwordConfirmation", "must match password provided").optional().matches(req.body.password);
+      check("email", "must be valid").isEmail();
+      check("password", "must be at least 6 characters in length").isLength({min: 6})
+      check("passwordConfirmation", "must match password provided").optional().matches(req.body.password);
     }
 
-    const errors = req.validationErrors();
-
+    const errors = validationResult(req);
+    
     if (errors) {
       req.flash("error", errors);
       return res.redirect(req.headers.referer);
