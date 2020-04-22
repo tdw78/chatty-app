@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body style="background-color: #FFEAD0;">
+    
+    <% include ../static/partials/navbar.ejs %>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <h1> Messages</h1>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-4"></div>
+
+        <main class="container">
+      
+            <ul class="list-group">
+              <% messages.forEach((message) => { %>
+    
+                 <li class="list-group-item">
+                   <%- message.text %>
+                 </li>
+              
+              <% }) %>
+          </ul>
+    
+          <% if(currentUser) { %>
+          
+            <form action="/messages" method="post">
+              <div class="form-group">
+                <input type="text" class="form-control" name="text" aria-describedby="textHelp" placeholder="Enter Message">
+              </div>
+    
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+    
+          <% } %>    
+        </main>
+
+      <div class="col-md-4"></div>
+    </div>
+  
+
+    <% include ../static/partials/scripts.ejs %>
+
+  </body>
+</html>
