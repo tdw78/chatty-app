@@ -1,21 +1,22 @@
 const { check, validationResult } = require('express-validator');
 
 module.exports = {
-  // validateMessages(req, res, next) {
+  validateMessages(req, res, next) {
 
-  //   if(req.method === "POST") {
-  //     req.check("text", "must be at least 1 characters in length").isLength({min: 1});
-  //   }
+    if(req.method === "POST") {
+      check("text", "must be at least 1 characters in length").isLength({min: 1});
+      check("text", "must be no more than 25 characters in length").isLength({max: 25});
+    }
 
-  //   const errors = req.validationErrors();
+    const errors = validationResult(req);
 
-  //   if (errors) {
-  //     req.flash("error", errors);
-  //     return res.redirect(303, req.headers.referer)
-  //   } else {
-  //     return next();
-  //   }
-  // },
+    if (errors) {
+      req.flash("error", errors);
+      return res.redirect(303, req.headers.referer)
+    } else {
+      return next();
+    }
+  },
   validateUsers(req, res, next) {
     if(req.method === "POST") {
 

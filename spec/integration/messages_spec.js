@@ -1,6 +1,6 @@
 const request = require("request");
 const server = require("../../src/server");
-const base = "http://localhost:5000/messages/";
+const base = "http://localhost:5000/messages";
 const sequelize = require("../../src/db/models/index").sequelize;
 const Message = require("../../src/db/models").Message;
 const User = require("../../src/db/models").User;
@@ -10,10 +10,21 @@ describe("routes : messages", () => {
 
   beforeEach((done) => {    
     this.message;
+    this.user;
 
     sequelize.sync({ force: true }).then(() => {
-      Messge.create({
-        text: "Hello everyone"
+
+      User.create({
+        name: "Bob",
+        email: "bob@mail.com",
+        password: "124abc"
+      })
+      .then((user) => {
+        this.user = user
+      
+      Message.create({
+        text: "Hello everyone",
+        userId: this.user.id
       })
       .then((res) => {
         this.message = res;
@@ -23,6 +34,7 @@ describe("routes : messages", () => {
         console.log(err);
         done();
       })
+    })
     });
   });
 
@@ -39,11 +51,12 @@ describe("routes : messages", () => {
       });
     });
 
-    describe("POST /messages/create", () => {
+    describe("POST /messages", () => {
       const options = {
-        url: `${base}create`,
+        url: `${base}`,
         form: {
-          text: "How are you?"
+          text: "How are you?",
+          userId: this.user.id
         }
       }
 
@@ -52,7 +65,7 @@ describe("routes : messages", () => {
           (err, res, body) => {
             Message.findOne({where: {text: "How are you?"}})
             .then((message) => {
-              expect(message).not.toBeNull();
+              expect(message.text).toBe("How are you?");
               done();
             })
             .catch((err) => {

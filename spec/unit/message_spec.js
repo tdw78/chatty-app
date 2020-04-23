@@ -9,6 +9,7 @@ describe("Message", () => {
 
     sequelize.sync({ force: true }).then(res => {
       User.create({
+        name: "Tim",
         email: "tim@mail.com",
         password: "golfer"
       }).then(user => {
@@ -16,7 +17,7 @@ describe("Message", () => {
 
         Message.create({
             text: "Keep you head down",
-            owner: this.user
+            userId: this.user.id
           })
           .then(message => {
           this.message = message;
@@ -29,7 +30,8 @@ describe("Message", () => {
   describe("#create()", () => {
     it("should create a new messge", done => {
       Message.create({
-        text: "How r u"
+        text: "How r u",
+        userId: this.user.id
       })
         .then(messge => {
           expect(message.text).toBe("How r u");

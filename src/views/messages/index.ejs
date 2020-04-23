@@ -8,26 +8,26 @@
     <% include ../static/partials/navbar.ejs %>
     <div class="row">
       <div class="col-md-4"></div>
-      <h1> Messages</h1>
+      <h1 style="color: #37505C; font-family: URW Chancery; font-size: 44px;"> Messages</h1>
     </div>
 
 
     <div class="row">
-      <div class="col-md-4"></div>
+      <div class="col-md-3"></div>
 
         <main>
-      
+           <div class="scrollable">
             <ul class="list-group">
               <% messages.forEach((message) => { %>
     
-                 <li class="list-group-item">
-                  <%= message.userId %>:
-                   <%- message.text %>
+                 <li class="list-group-item" style="color: #37505C; font-family: URW Chancery; font-size: 19px;">
+                   <%= message.userId %>:
+                   <%= message.text %>
                  </li>
               
               <% }) %>
           </ul>
-    
+        </div>
           <% if(currentUser) { %>
           
             <form action="/messages" method="post">
@@ -41,7 +41,7 @@
           <% } %>    
         </main>
 
-      <div class="col-md-4"></div>
+      <div class="col-md-2"></div>
     </div>
   
 
