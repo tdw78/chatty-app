@@ -15,12 +15,13 @@
     <div class="row">
       <div class="col-md-4"></div>
 
-        <main class="container">
+        <main>
       
             <ul class="list-group">
               <% messages.forEach((message) => { %>
     
                  <li class="list-group-item">
+                  <%= message.userId %>:
                    <%- message.text %>
                  </li>
               

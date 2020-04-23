@@ -16,6 +16,7 @@ module.exports = {
 
     let newMessage = {
       text: req.body.text,
+      userId: req.user.id
     };
     messageQueries.addMessage(newMessage, (err, message) => {
        if(err){

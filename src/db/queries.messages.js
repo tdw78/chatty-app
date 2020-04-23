@@ -13,7 +13,8 @@ module.exports = {
   },
   addMessage(newMessage, callback){
     return Message.create({
-      text: newMessage.text
+      text: newMessage.text,
+      userId: newMessage.userId
     })
     .then((message) => {
       callback(null, message);
