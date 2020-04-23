@@ -6,6 +6,16 @@ app.set("port", port);
 const server = http.createServer(app);
 server.listen(port);
 
+const io = require("socket.io").listen(server);
+
+io.on('connection', (socket) => {
+  console.log("Connection made")
+
+})
+
+
+
+
 function normalizePort(val) {
   const port = parseInt(val, 10);
   if (isNaN(port)) {
